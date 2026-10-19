@@ -1,18 +1,66 @@
-# Tinfoil Container Configuration
-# For updates: edit this file, commit, run the workflow (e.g., v0.0.2)
-cvm-version: 0.14.7
+# tinfoil-config.yml template for the co-signer dry-run.
+#
+# deploy.sh renders this into the PUBLIC config repo. Every value below is
+# measured into the attestation and visible to everyone, so it carries no
+# private setting:
+#
+# - Hidden settings (API URL, Telegram chat ID, lane-file URL and lane key)
+#   are one Tinfoil organization secret, DRYRUN_SECRET_CONFIG. Only its salted
+#   sha256 is published, as DRYRUN_CONFIG_COMMITMENT; the binary refuses to
+#   start unless the secret matches it, so a hidden change is still a new
+#   release and key.
+# - The Telegram bot token is its own Tinfoil secret (a credential only: it can
+#   suppress messages, never forge a signed result).
+# - Lanes live in lanes.enc in the same repo, AES-256-GCM encrypted, and are
+#   re-read every DRYRUN_LANES_REFRESH (default 10 minutes) with no restart.
+#   Each change of the file is announced with its sequence, sha256 and the
+#   number of lanes monitored, never the lane names.
+#
+# Placeholders (${...}) are filled by deploy.sh from deploy.env and sealed.json.
+# Take cvm-version from the Tinfoil template repo you created, not from here.
+
+cvm-version: "0.14.7"
 cpus: 2
 memory: 8192
 
-containers:
-  - name: "hello-world"
-    image: "ghcr.io/tinfoilsh/tinfoil-containers-hello-world@sha256:c943b1cab16409e2e686ad71deab30364c27421852cdd6b3080df1c7a38331ed"
-    env:
-      - MESSAGE: "Hello from Tinfoil"
-    secrets:
-      - GREETING_TOKEN
+networks:
+  egress:
+    egress: allowlist
+    allow:
+      - api.telegram.org
+      - fapi.binance.com
+      - perps-api.orbs.network
+      - raw.githubusercontent.com
+      - rpcman.orbs.network
 
+containers:
+  - name: app
+    image: "ghcr.io/orbs-network/enclave-app-1:v0.1.0@sha256:4b490b396d078be294bce63fd8b4a7add04c4447ce02f850f981d633f9f5dd5f"
+    networks: [egress]
+    read_only: true
+    tmpfs:
+      - /tmp
+    env:
+      - DRYRUN_RELEASE_TAG: "v0.1.0"
+      - DRYRUN_CONFIG_COMMITMENT: "0x3b86632666e9755be80d4f03394e706a48c8c591248e671b554388d0f348eb73"
+      - DRYRUN_LISTEN_ADDR: "0.0.0.0:8090"
+      - DRYRUN_REPO_PATH: "/app"
+    secrets:
+      - DRYRUN_SECRET_CONFIG
+      - DRYRUN_SECRET_TELEGRAM_BOT_TOKEN
+    # Attested co-signer key (Tinfoil attested-keys, beta). Enable together with
+    # the binary's tinfoil key mode (D7); until then the dry-run generates its
+    # own in-memory key at boot and labels results UNATTESTED.
+    # keys: [cosigner-root]
+
+# attested-keys:
+#   - id: cosigner-root
+#     key: ed25519
+
+# Only identity and liveness are public. /health reports a lane count, never
+# lane names; assessments go to the private Telegram group only.
 shim:
-  upstream-port: 8080
+  upstream-port: 8090
   paths:
-    - /*
+    - /health
+    - /identity
