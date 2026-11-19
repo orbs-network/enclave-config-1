@@ -1,0 +1,40 @@
+{
+  "buildArgs": {
+    "AUDIT_AWS_KMS_REGION": "ap-northeast-1",
+    "AUDIT_AWS_SECRETS": "AUDIT_SECRET_CONFIG=AQICAHgVItBt61F0FNFNTbG5z093RNTWZkqW0E7qNw2ZhY7u4QHHnYtYbXZnORNAPjIMmw9WAAACtjCCArIGCSqGSIb3DQEHBqCCAqMwggKfAgEAMIICmAYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAzb80Ps9ENEsfZKtY8CARCAggJpfgKnPirsn1bDn6QxNHcjIJf7j3LkUyT20XyvqvSAwmcRedsJ5FYfNkxUdoLXsGeJ/HF43MFVnW5AJU0BhMP5Z0/m14xl7W7N4W0R5kWpVKgs+bgfOVkfDu9/NcVtbUUy5VaL7Ry1zCvvFkDKW548CHcNPuBeGZVa4/rk1mhi7kjA4Ra3MeG7+XWyKtuR105uybrpIy6LiSuZF5zofJQmeN6X8Jc+NpL/UU3R3Pgk0/euM7SHQUVuGUZb3IQaf3MMGnn+9j8ZyhIdzMryQmNWDkm+JWMKBWOgW8DdAFd8n1pIVVqkm0C2y7qiYUTNt8cWch8MoJCzgRtlZ972EFydf4IirqRelOvCLdsNpK+PJqCpK6aTpWHb8elM3ux2YRTbIbwaCWDa+hisRAuBGp54KUjDOlBh2JrreT0zVttot5v1zRulAsGjTtjT6cE0LJttGW8Uc4UeWDgrBVeKEbYHPOySKBYfdYH7hCzxyL4Q1AzL0olp9TdZcQHNFVMWBr5gQvhBUn6JmfA9x3sTeY89LchDYLp5fUh5IswuUduOlu0ZYVgx8yqSq4XZ3eViOWsnalajXQ2Svzy0IwN1uJWcmO8njYhfVWTtnFD1tCFK0WWlAokdnF6U4m4BxJejpoJdmqbzibvfEM329Ha4uDY+o4ECMwZYyA111tLcyvyJMAeWUxBegUEJO2EdIVv1KbunpHXExOJfHA5YQIsY68T/4Rni2nviyWkrniluwKcFEvr8g9Fm7R09uCNYafrczv0yJMCZ+GfbVpHHzNDHUc5AR/GBYNccxuuUVJM5/Tb9Moimi1BR5DlkP6I=,AUDIT_SECRET_TELEGRAM_BOT_TOKEN=AQICAHgVItBt61F0FNFNTbG5z093RNTWZkqW0E7qNw2ZhY7u4QFiD2ZAdG7uAt6wp/C2VKq6AAAAjTCBigYJKoZIhvcNAQcGoH0wewIBADB2BgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDDdME8pJxJWtPzoU8AIBEIBJ6vpdbjw57iN/yf69FrEk0NXqXg5+DXbQkib2sbZohLfcaYUgpFFhDTSptSAKA05NaNHVSVzi12Z1gyz7xLhqQb/qRa7fcFTsAw==",
+    "AUDIT_CONFIG_COMMITMENT": "0x123dfedffa5ff890bccd3e5a9e1b6767f9efc5959a2ff6d70604b8d0305e9e6d",
+    "AUDIT_MODES": "light,level1,lane-finance,transitions",
+    "AUDIT_PRICE_SOURCE": "binance-futures",
+    "AUDIT_RELEASE_TAG": "v0.9.14",
+    "GIT_COMMIT": "38762505d8447a140e8c94b3593a4cbe45a4f453",
+    "SOURCE_DATE_EPOCH": "1795097281",
+    "TEE_CODE_HASH": "code-b3004ac06e05803ceca7e172dbdc302dedd9325f"
+  },
+  "configCommitment": "0x123dfedffa5ff890bccd3e5a9e1b6767f9efc5959a2ff6d70604b8d0305e9e6d",
+  "contextPaths": [
+    "shared",
+    "backend",
+    "tee/go.mod",
+    "tee/go.sum",
+    "tee/internal",
+    "tee/replay",
+    "skills/analyze-perpetual-user-health/scripts/calculate_health_score.py"
+  ],
+  "debug": false,
+  "eifBuilder": "amazonlinux@sha256:b156298161e9ab6392cda59081d016866601f7213a28ec21270d3a75c72f2170",
+  "eifSha256": "229302733491e98e0b348398e578ac1910b7891be1043a38d4dc8e74f6301863",
+  "eifUri": "s3://perps-cosigner-audit-eif-506367651493-ap-northeast-1/v0.9.14.eif",
+  "imageDigest": "sha256:e5283b360b659270b0ef71411b04a7958bb6a33662fc52e5cc379391f1f9a8d2",
+  "kmsKey": "arn:aws:kms:ap-northeast-1:506367651493:key/d10d471d-bb7c-4b6b-9310-3260fbd18dbd",
+  "nitroCliVersion": "1.5.0",
+  "pcrs": {
+    "PCR0": "e3c615a2d14c0f6253f0eecfa942e9d4c2075a7b269ac8a2772af8a772870ba25aa8a1fd3b4773a8b67f10faf7a3871f",
+    "PCR1": "4b4d5b3661b3efc12920900c80e126e4ce783c522de6c02a2a5bf7af3a2b9327b86776f188e4be1c1c404a129dbda493",
+    "PCR2": "f06b41deab43fe6c7b13cb735c8dbc82e8bac5328ed7d77950971237791c9e1191524883eb7e65405d70c54953a133df"
+  },
+  "platform": "aws",
+  "priceSource": "binance-futures",
+  "sourceCommit": "38762505d8447a140e8c94b3593a4cbe45a4f453",
+  "tag": "v0.9.14",
+  "teeCodeHash": "code-b3004ac06e05803ceca7e172dbdc302dedd9325f"
+}
